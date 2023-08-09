@@ -23,7 +23,7 @@ namespace BookStore.Presentation.Areas.Admin.Controllers
         }
         public IActionResult Index()
         {
-            List<Product> objCategoryList = _unitOfWork.Product.GetAll("Category").ToList(); 
+            List<Product> objCategoryList = _unitOfWork.Product.GetAll(includeProperties :"Category").ToList(); 
             return View(objCategoryList);
         }
 
@@ -105,7 +105,7 @@ namespace BookStore.Presentation.Areas.Admin.Controllers
         [HttpGet]
         public IActionResult GetAll()
         {
-            List<Product> objCategoryList = _unitOfWork.Product.GetAll("Category").ToList();
+            List<Product> objCategoryList = _unitOfWork.Product.GetAll(includeProperties: "Category").ToList();
             return Json(new { data = objCategoryList });
         }
         [HttpDelete]

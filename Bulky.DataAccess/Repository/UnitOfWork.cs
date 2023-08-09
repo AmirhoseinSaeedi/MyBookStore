@@ -10,6 +10,8 @@ namespace BookStore.Infrastructure.Repository
         public IProductRepository Product { get; private set; }
 
         public ICompanyRepository Company { get; private set; }
+        public IshoppingCartRepository ShoppingCart { get;private set; }
+        public IApplicationUserRepository ApplicationUser { get; private set; }
 
         private readonly ApplicationDbContext _context;
 
@@ -19,7 +21,10 @@ namespace BookStore.Infrastructure.Repository
             Category = new CategoryRepository(_context);
             Product = new ProductRepository(_context);
             Company = new CompanyRepository(_context);
+            ShoppingCart = new ShoppingCartRepository(_context);
+            ApplicationUser = new ApplicationUserRepository(_context);
         }
+
 
         public void Save()
         {
