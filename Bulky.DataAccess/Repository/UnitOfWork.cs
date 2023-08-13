@@ -12,6 +12,8 @@ namespace BookStore.Infrastructure.Repository
         public ICompanyRepository Company { get; private set; }
         public IshoppingCartRepository ShoppingCart { get;private set; }
         public IApplicationUserRepository ApplicationUser { get; private set; }
+        public IOrderHeaderRepository OrderHeader { get; set; }
+        public IOrderDetailRepository OrderDetail { get; set; }
 
         private readonly ApplicationDbContext _context;
 
@@ -23,6 +25,8 @@ namespace BookStore.Infrastructure.Repository
             Company = new CompanyRepository(_context);
             ShoppingCart = new ShoppingCartRepository(_context);
             ApplicationUser = new ApplicationUserRepository(_context);
+            OrderHeader = new OrderHeaderRepository(_context);
+            OrderDetail = new OrderDetailRepository(_context);
         }
 
 

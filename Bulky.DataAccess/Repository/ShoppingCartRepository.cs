@@ -14,7 +14,7 @@ namespace BookStore.Infrastructure.Repository
 
         public void Update(ShoppingCart shoppingCart)
         {
-            _context.Update(shoppingCart);
+            _context.ShoppingCarts.Update(shoppingCart);
         }
     }
 }
