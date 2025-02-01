@@ -32,7 +32,7 @@ namespace BookStore.Presentation.Areas.Admin.Controllers
         {
              OrderVM = new OrderVM()
             {
-                OrderHeader = _unitOfWork.OrderHeader.Get(u=>u.Id==orderid, includeProperties:"ApplicationUser"),
+                OrderHeader = _unitOfWork.OrderHeader.Get(u=>u.Id==orderid, includeProperties:"ApplicationUser", false),
                 OrderDetails = _unitOfWork.OrderDetail.GetAll(u=>u.OrderHeaderId == orderid, includeProperties:"Product")
             };
             return View(OrderVM);
