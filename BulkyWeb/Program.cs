@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using BookStore.Utility;
 using Stripe;
+using Stripe.Checkout;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,6 +26,7 @@ builder.Services.ConfigureApplicationCookie(options => {
 });
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IEmailSender, EmailSender>();
+builder.Services.AddSingleton<SessionService>();
 builder.Services.AddRazorPages();
 
 var app = builder.Build();

@@ -16,9 +16,11 @@ namespace BookStore.Presentation.Areas.Customer.Controllers
         private readonly IUnitOfWork _unitOfWork;
         [BindProperty]
         public ShoppingCartVM ShoppingCartVM { get; set; }
-        public CartController(IUnitOfWork unitOfWork)
+        private readonly SessionService _sessionService;
+        public CartController(IUnitOfWork unitOfWork, SessionService sessionService)
         {
             _unitOfWork = unitOfWork;
+            _sessionService = sessionService;
         }
 
         public IActionResult Index()
@@ -141,9 +143,7 @@ namespace BookStore.Presentation.Areas.Customer.Controllers
 					options.LineItems.Add(sessionLineItem);
 				}
 
-
-				var service = new SessionService();
-				Session session = service.Create(options);
+				Session session = _sessionService.Create(options);
 				_unitOfWork.OrderHeader.UpdateStripePaymentID(ShoppingCartVM.OrderHeader.Id, session.Id, session.PaymentIntentId);
 				_unitOfWork.Save();
 				Response.Headers.Add("Location", session.Url);
@@ -158,7 +158,7 @@ namespace BookStore.Presentation.Areas.Customer.Controllers
         {
             OrderHeader orderHeader = _unitOfWork.OrderHeader.Get(u=>u.Id==id, includeProperties:"ApplicationUser");
             if (orderHeader.PaymentStatus != SD.PaymentStatusDelayedPayment){
-                var service = new SessionService();
+                var service = _sessionService;
                 Session session = service.Get(orderHeader.SessionId);
                 if(session.PaymentStatus.ToLower() == "paid")
                 {
